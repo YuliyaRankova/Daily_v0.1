@@ -1,10 +1,13 @@
 package telran.daily.service;
 
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import telran.daily.dao.DailyRepository;
 import telran.daily.dto.TaskDto;
+import telran.daily.model.TaskEntity;
 
 @Service
 @RequiredArgsConstructor
@@ -14,7 +17,11 @@ public class DailyServiceImpl implements DailyService{
 	
 	@Override
 	public Boolean createTask(TaskDto taskDto) {
-		return null;
+		TaskEntity task = new TaskEntity(taskDto.getTitle(), taskDto.getDescription(), 
+				LocalDateTime.parse(taskDto.getCompletedDate()));
+//		task.setId(1L);
+		dailyRepository.save(task);
+		return true;
 	}
 
 }
